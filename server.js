@@ -11,6 +11,9 @@ app.use(express.urlencoded({ extended:true }));
 //中间件调用，下面这行代码，实现了给req加上一个cookies的属性，获取cookie数据
 app.use(cookieParser());
 
+//中间件调用，静态资源托管设置
+app.use(express.static("public"));
+
 //to do 路由
 app.get('/',(req,res) => {
     //req.query
