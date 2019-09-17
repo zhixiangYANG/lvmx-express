@@ -58,4 +58,44 @@ app.get('/world/:name/:age',(req,res) => {
     res.send("hello");
 });
 
+
+//-------------------------------------------------------------------
+
+const myHello = (type) =>{
+    return (req,res,next) => {
+        let abc = new Date();
+        let year = abc.getFullYear();
+        let month = abc.getMonth() + 1;
+        let date = abc.getDate();
+        if(type === 1){
+            //年月日
+            req.requestTime = `${year} - ${month} - ${date}`;
+        } else if(type === 2){
+            //年月
+            req.requestTime = `${year} - ${month}`;
+        } else if(type === 3){
+            //年
+            req.requestTime = `${year}`;
+        } else{
+            req.requestTime = abc.getTime();
+        }
+    next();  
+    };
+};
+
+// app.use(myHello(1));
+
+app.get('/test',myHello(1),(req,res) => {
+    console.log(req.requestTime);
+    res.send('test');
+});
+
+
+app.get('/test2',myHello(2),(req,res) => {
+    console.log(req.requestTime);
+    res.send('test2');
+});
+
+
+
 app.listen(3000);
