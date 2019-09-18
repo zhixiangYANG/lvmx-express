@@ -8,14 +8,14 @@ const mongoose = require("../config/db");
 
 const schema = new mongoose.Schema({
     //表的数据结构描述
-    username: String,
-    password: String,
-    email: String,
+    username : String,
+    password : String,
+    email : String
 });
 
 //3.生成model
 
-const model = mongoose.model('user',schema);
+const model = mongoose.model("user",schema);
 
 //4.暴露model
 
