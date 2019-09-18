@@ -8,7 +8,7 @@ router.get('/create',(req,res) => {
 });
 
 //注册操作路由
-router.post('/store',(req,res) => {
+router.post('/store', async (req,res) => {
     //1.获取form表单，前端传递过来的参数
     // let username = req.boby.username;
     let username = req.body.username;
@@ -22,7 +22,8 @@ router.post('/store',(req,res) => {
     }
 
     //3.保存到数据库中
-    UserModel.findOne({ email:req.body.email }).then(data => {
+   /*  UserModel.findOne({ email:req.body.email })
+    .then(data => {
         // console.log(data)
         if(data){
             //邮箱已经被注册过了
@@ -38,7 +39,19 @@ router.post('/store',(req,res) => {
                 res.send("注册失败");
             });   
         }
-    })
+    }) */
+
+    
+    //await 方法
+    let data = await UserModel.findOne({ email: req.body.email })
+    if(data){
+        res.send("邮箱已被注册");
+    } else {
+        let user = new UserModel(req.body);
+        await user.save();
+        res.send("注册成功");
+    }
+
 });
 
 module.exports = router;
