@@ -1,6 +1,7 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const userRouter = require('./routers/user');
+const postRouter = require('./routers/post');
 const app = express();
 
 
@@ -20,6 +21,7 @@ app.use(cookieParser());
 
 //处理路由中间件
 app.use('/users',userRouter);
+app.use('/posts',postRouter);
  
 
 app.listen(3000);
