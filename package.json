@@ -6,11 +6,20 @@
   "scripts": {
     "dev": "nodemon server.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhixiangYANG/lvmx-express.git"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zhixiangYANG/lvmx-express/issues"
+  },
+  "homepage": "https://github.com/zhixiangYANG/lvmx-express#readme",
   "dependencies": {
     "cookie-parser": "^1.4.4",
+    "ejs": "^2.7.1",
     "express": "^4.17.1"
   }
 }
