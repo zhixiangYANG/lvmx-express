@@ -38,6 +38,8 @@ app.use(cookieParser());
 app.use('/users',userRouter);
 app.use('/posts',postRouter);
  
-
+app.get('/',(req,res) => {
+    res.redirect("/posts");
+});
 app.listen(3000);
 
