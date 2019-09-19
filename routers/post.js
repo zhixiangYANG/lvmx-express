@@ -1,9 +1,12 @@
 const express = require("express");
+const auth = require("../middlewares/auth");
 const PostModel = require("../models/post");
 const router = express.Router();
 
 //文章列表
-router.get("/", async (req, res) => {
+router.get("/", auth(), async (req, res) => {
+  // console.log(req.session);
+
   //从url地址上获取当前要的是第几页，每页要几条
   let pageNum = parseInt(req.query.pageNum) || 1;
   let pageSize = parseInt(req.query.pageSize) || 5;
@@ -24,12 +27,12 @@ router.get("/", async (req, res) => {
 });
 
 //新增文章
-router.get("/create", (req, res) => {
+router.get("/create", auth(), (req, res) => {
   res.render("posts/create");
 });
 
 //文章详情页
-router.get("/:id", async (req, res) => {
+router.get("/:id", auth(), async (req, res) => {
   //1.获取文章的ID
   let id = req.params.id;
 
@@ -43,7 +46,7 @@ router.get("/:id", async (req, res) => {
 });
 
 //新增文章页面
-router.post("/store", async (req, res) => {
+router.post("/store", auth(), async (req, res) => {
   //1.数据的校验
   if (!req.body.title || !req.body.content) {
     res.send("参数有错误");
@@ -59,7 +62,7 @@ router.post("/store", async (req, res) => {
 });
 
 //编辑文章页面
-router.get("/:id/edit", async (req, res) => {
+router.get("/:id/edit", auth(), async (req, res) => {
   //1.根据文章ID获取信息
   let id = req.params.id;
   let post = await PostModel.findById(id);
@@ -71,7 +74,7 @@ router.get("/:id/edit", async (req, res) => {
 });
 
 //编辑文章操作
-router.post("/update", async (req, res) => {
+router.post("/update", auth(), async (req, res) => {
   //1.需要知道修改文章的ID
   let id = req.body.id;
   let title = req.body.title;
@@ -86,7 +89,7 @@ router.post("/update", async (req, res) => {
 });
 
 //删除的接口，供前端的AJAX调用
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", auth(), async (req, res) => {
   let id = req.params.id;
   await PostModel.deleteOne({ _id: id });
   res.send({

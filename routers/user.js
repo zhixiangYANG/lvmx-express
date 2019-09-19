@@ -61,13 +61,17 @@ router.post('/store', async (req,res) => {
 
 //登录页面
 router.get("/login",(req,res) => {
-    res.render("login");
+    let redirect = req.query.redirect || "/posts";
+    res.render("login", {
+        redirect
+    });
 });
 
 //登录页面操作
 router.post("/login", async (req,res) => {
     let email = req.body.email;
     let password = req.body.password;
+    let redirect = req.body.redirect;
 
     if(!email || !password){
         res.send("参数有误");
@@ -87,7 +91,10 @@ router.post("/login", async (req,res) => {
         res.send("用户名或密码错误");
         return;
     }
-    res.redirect("/posts");
+    //登录成功
+    //给session加点内容
+    req.session.user = user;
+    res.redirect(redirect);
 });
 
 module.exports = router;
