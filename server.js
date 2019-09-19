@@ -4,6 +4,7 @@ const session = require("express-session");
 
 const userRouter = require('./routers/user');
 const postRouter = require('./routers/post');
+const fileRouter = require('./routers/file');
 
 const app = express();
 
@@ -37,6 +38,7 @@ app.use(cookieParser());
 //处理路由中间件
 app.use('/users',userRouter);
 app.use('/posts',postRouter);
+app.use('/files',fileRouter);
  
 app.get('/',(req,res) => {
     res.redirect("/posts");

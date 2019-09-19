@@ -35,7 +35,7 @@ router.get("/", auth(), async (req, res) => {
       let m = abc.getMinutes();
       let s = abc.getSeconds(); */
       // item.updatedAt = `${year}-${month}-${date}  ${h}:${m}:${s}`;
-      item.updatedAt = moment(abc).format('YYYY-MM-DD HH:mm:ss')
+      item.updatedAt = moment(abc).format('YYYY-MM-DD HH:mm:ss');
     });
 
   res.render("posts/index", {
