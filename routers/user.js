@@ -59,4 +59,35 @@ router.post('/store', async (req,res) => {
 
 });
 
+//登录页面
+router.get("/login",(req,res) => {
+    res.render("login");
+});
+
+//登录页面操作
+router.post("/login", async (req,res) => {
+    let email = req.body.email;
+    let password = req.body.password;
+
+    if(!email || !password){
+        res.send("参数有误");
+        return;
+    }
+
+    //由于数据库的密码加密了，不要直接用两个数据去查询
+    let user = await UserModel.findOne({email:email});
+    if(!user){
+        res.send("用户名或密码错误");
+        return;
+    }
+
+    //密码校验
+     let isOk = bcryptjs.compareSync(password,user.password)
+    if(!isOk){
+        res.send("用户名或密码错误");
+        return;
+    }
+    res.redirect("/posts");
+});
+
 module.exports = router;
