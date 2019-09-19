@@ -22,13 +22,16 @@ router.get("/", auth(), async (req, res) => {
   res.render("posts/index", {
     list,
     total,
-    pageNum
+    pageNum,
+    user:req.session.user
   });
 });
 
 //新增文章
 router.get("/create", auth(), (req, res) => {
-  res.render("posts/create");
+  res.render("posts/create",{
+    user:req.session.user
+  });
 });
 
 //文章详情页
@@ -41,7 +44,8 @@ router.get("/:id", auth(), async (req, res) => {
 
   //3.渲染页面
   res.render("posts/show", {
-    postInfo: data
+    postInfo: data,
+    user:req.session.user
   });
 });
 
@@ -58,7 +62,9 @@ router.post("/store", auth(), async (req, res) => {
   await newPost.save();
   // res.send("发表成功");
   //成功后跳转到列表页
-  res.redirect("/posts");
+  res.redirect("/posts",{
+    user:req.session.user
+  });
 });
 
 //编辑文章页面
@@ -69,7 +75,8 @@ router.get("/:id/edit", auth(), async (req, res) => {
   res.render("posts/edit", {
     id: post._id,
     title: post.title,
-    content: post.content
+    content: post.content,
+    user:req.session.user
   });
 });
 

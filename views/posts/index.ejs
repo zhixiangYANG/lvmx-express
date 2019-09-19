@@ -2,6 +2,9 @@
 
 <%- include("../layouts/header.ejs") %>
 
+
+<%- include("../layouts/nav.ejs") %>
+
 <div class="container my-5">
   <div class="list-group list-group-flush">
     <% for(var i = 0 ;i < list.length;i++){ %>
@@ -28,18 +31,28 @@
   <nav class="my-5">
     <ul class="pagination">
       <li class="page-item">
-        <a class="page-link" href="/posts?pageNum=<%= pageNum === 1 ? 1 : pageNum - 1%>" aria-label="Previous">
+        <a
+          class="page-link"
+          href="/posts?pageNum=<%= pageNum === 1 ? 1 : pageNum - 1%>"
+          aria-label="Previous"
+        >
           <span aria-hidden="true">&laquo;</span>
         </a>
       </li>
       <% for(var i = 1 ; i <= total;i++){ %>
 
-          <li class="page-item <%= pageNum === i ? 'active' : '' %> "><a class="page-link" href="/posts?pageNum=<%= i %>"><%= i %></a></li>
+      <li class="page-item <%= pageNum === i ? 'active' : '' %> ">
+        <a class="page-link" href="/posts?pageNum=<%= i %>"><%= i %></a>
+      </li>
 
       <% } %>
-      
+
       <li class="page-item">
-        <a class="page-link" href="/posts?pageNum=<%= pageNum === total ? total : pageNum + 1 %>" aria-label="Next">
+        <a
+          class="page-link"
+          href="/posts?pageNum=<%= pageNum === total ? total : pageNum + 1 %>"
+          aria-label="Next"
+        >
           <span aria-hidden="true">&raquo;</span>
         </a>
       </li>

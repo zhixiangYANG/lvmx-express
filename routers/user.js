@@ -5,7 +5,9 @@ const router = express.Router();
 
 //注册页面路由
 router.get('/create',(req,res) => {
-    res.render('register');
+    res.render('register',{
+        user:req.session.user
+    });
 });
 
 //注册操作路由
@@ -63,7 +65,8 @@ router.post('/store', async (req,res) => {
 router.get("/login",(req,res) => {
     let redirect = req.query.redirect || "/posts";
     res.render("login", {
-        redirect
+        redirect,
+        user:req.session.user
     });
 });
 
@@ -95,6 +98,14 @@ router.post("/login", async (req,res) => {
     //给session加点内容
     req.session.user = user;
     res.redirect(redirect);
+});
+
+//退出登录
+router.post("/logout",(req,res) => {
+    //session清除
+    req.session.destroy();
+    //打回登录页面
+    res.redirect("/users/login");
 });
 
 module.exports = router;
