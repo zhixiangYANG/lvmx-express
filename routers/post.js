@@ -60,7 +60,7 @@ router.get("/:id", auth(), async (req, res) => {
 
   //2.根据这个ID去数据库中查找文章
   let data = await PostModel.findById(id);
-
+  
   //3.渲染页面
   res.render("posts/show", {
     postInfo: data,
@@ -81,9 +81,7 @@ router.post("/store", auth(), async (req, res) => {
   await newPost.save();
   // res.send("发表成功");
   //成功后跳转到列表页
-  res.redirect("/posts",{
-    user:req.session.user
-  });
+  res.redirect("/posts");
 });
 
 //编辑文章页面
@@ -111,7 +109,8 @@ router.post("/update", auth(), async (req, res) => {
     { title: title, content: content }
   );
   // console.log(data);
-  res.send("修改成功");
+  // res.send("修改成功");
+  res.redirect("/posts");
 });
 
 //删除的接口，供前端的AJAX调用

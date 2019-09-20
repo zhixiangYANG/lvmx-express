@@ -4,6 +4,7 @@ const bcryptjs = require('bcryptjs');
 const router = express.Router();
 
 //注册页面路由
+
 router.get('/create',(req,res) => {
     res.render('register',{
         user:req.session.user

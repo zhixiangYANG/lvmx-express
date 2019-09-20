@@ -3,16 +3,39 @@
 <%- include("../layouts/header.ejs") %>
 
 <div class="container my-5">
-  <h3 class="my-5">Upload</h3>
+  <h3 class="my-5">Upload - 单个文件</h3>
 
-  <form
-    action="#"
-    method="POST"
-    enctype="multipart/form-data"
-  >
+  <form action="/files/store" method="POST" enctype="multipart/form-data">
     <div class="from-group">
       <input type="file" name="file" />
     </div>
+
+    <button class="btn btn-primary my-3" type="submit">Submit</button>
+  </form>
+
+  <h3 class="my-5">Upload - 一个input可以选择多个文件的操作，比如朋友圈</h3>
+
+  <form action="/files/hello" method="POST" enctype="multipart/form-data">
+    <div class="from-group">
+      <input type="file" name="file" multiple />
+    </div>
+    <br />
+
+    <button class="btn btn-primary my-3" type="submit">Submit</button>
+  </form>
+
+  <h3 class="my-5">Upload - 多个input情况，比如身份证上传</h3>
+
+  <form action="/files/world" method="POST" enctype="multipart/form-data">
+    <div class="from-group">
+      <input type="file" name="pic1"  />
+    </div>
+    <br>
+    <div class="from-group">
+      <input type="file" name="pic2"  />
+    </div>
+    <br />
+
     <button class="btn btn-primary my-3" type="submit">Submit</button>
   </form>
 </div>
